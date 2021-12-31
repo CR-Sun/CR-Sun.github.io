@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="利用导热方程处理数字图像摘要：经过半个学期数理方程的学习，我们对于常见的几种PDE形式和它们的常见求解方法有了一个大概的认识，特别是利用分离变量法求解的三种常见偏微分方程：波动方程、热传导方程和Poisson方程。这三种方程是我们认识数理方程的一个开始。其实，在这三种我们早已熟悉的方程中，也潜藏着许多应用的潜力。本文讨论了利用热传导方程的基本原理，使用高斯核卷积的基本思想处理数字图像的方法和原理，">
+  <meta name="description" content="title: 利用导热方程处理数字图像tags: 数学categories: 乱写 利用导热方程处理数字图像摘要：经过半个学期数理方程的学习，我们对于常见的几种PDE形式和它们的常见求解方法有了一个大概的认识，特别是利用分离变量法求解的三种常见偏微分方程：波动方程、热传导方程和Poisson方程。这三种方程是我们认识数理方程的一个开始。其实，在这三种我们早已熟悉的方程中，也潜藏着许多应用的潜力。本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="归终的厨房">
 <meta property="og:url" content="http://example.com/2021/12/20/%E5%85%B3%E4%BA%8E%E7%83%AD%E4%BC%A0%E5%AF%BC%E6%96%B9%E7%A8%8B%E5%92%8C%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E7%9A%84%E8%AE%A8%E8%AE%BA/index.html">
 <meta property="og:site_name" content="归终的厨房">
-<meta property="og:description" content="利用导热方程处理数字图像摘要：经过半个学期数理方程的学习，我们对于常见的几种PDE形式和它们的常见求解方法有了一个大概的认识，特别是利用分离变量法求解的三种常见偏微分方程：波动方程、热传导方程和Poisson方程。这三种方程是我们认识数理方程的一个开始。其实，在这三种我们早已熟悉的方程中，也潜藏着许多应用的潜力。本文讨论了利用热传导方程的基本原理，使用高斯核卷积的基本思想处理数字图像的方法和原理，">
+<meta property="og:description" content="title: 利用导热方程处理数字图像tags: 数学categories: 乱写 利用导热方程处理数字图像摘要：经过半个学期数理方程的学习，我们对于常见的几种PDE形式和它们的常见求解方法有了一个大概的认识，特别是利用分离变量法求解的三种常见偏微分方程：波动方程、热传导方程和Poisson方程。这三种方程是我们认识数理方程的一个开始。其实，在这三种我们早已熟悉的方程中，也潜藏着许多应用的潜力。本">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-20T06:29:29.654Z">
-<meta property="article:modified_time" content="2021-12-20T19:54:00.388Z">
+<meta property="article:modified_time" content="2021-12-31T00:04:26.191Z">
 <meta property="article:author" content="CR Sun">
 <meta property="article:tag" content="力学 机械工程 机器学习 古典乐">
 <meta name="twitter:card" content="summary">
@@ -197,7 +197,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-21 03:54:00" itemprop="dateModified" datetime="2021-12-21T03:54:00+08:00">2021-12-21</time>
+                <time title="修改时间：2021-12-31 08:04:26" itemprop="dateModified" datetime="2021-12-31T08:04:26+08:00">2021-12-31</time>
               </span>
 
           
@@ -211,7 +211,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="利用导热方程处理数字图像"><a href="#利用导热方程处理数字图像" class="headerlink" title="利用导热方程处理数字图像"></a>利用导热方程处理数字图像</h1><p><strong>摘要：</strong>经过半个学期数理方程的学习，我们对于常见的几种PDE形式和它们的常见求解方法有了一个大概的认识，特别是利用分离变量法求解的三种常见偏微分方程：波动方程、热传导方程和Poisson方程。这三种方程是我们认识数理方程的一个开始。其实，在这三种我们早已熟悉的方程中，也潜藏着许多应用的潜力。本文讨论了利用热传导方程的基本原理，使用高斯核卷积的基本思想处理数字图像的方法和原理，利用Matlab和显、隐格式差分方法分别做出了一个简单的处理尝试，最后根据不同参数导致的不同效果做出了一个大概的讨论，分析了噪声的分布直方图。</p>
+        <p>title: 利用导热方程处理数字图像<br>tags: 数学<br>categories: 乱写</p>
+<h1 id="利用导热方程处理数字图像"><a href="#利用导热方程处理数字图像" class="headerlink" title="利用导热方程处理数字图像"></a>利用导热方程处理数字图像</h1><p><strong>摘要：</strong>经过半个学期数理方程的学习，我们对于常见的几种PDE形式和它们的常见求解方法有了一个大概的认识，特别是利用分离变量法求解的三种常见偏微分方程：波动方程、热传导方程和Poisson方程。这三种方程是我们认识数理方程的一个开始。其实，在这三种我们早已熟悉的方程中，也潜藏着许多应用的潜力。本文讨论了利用热传导方程的基本原理，使用高斯核卷积的基本思想处理数字图像的方法和原理，利用Matlab和显、隐格式差分方法分别做出了一个简单的处理尝试，最后根据不同参数导致的不同效果做出了一个大概的讨论，分析了噪声的分布直方图。</p>
 <p><strong>关键词：</strong>偏微分方程，数字图像处理，高斯滤波，差分法，噪声处理</p>
 <h2 id="1-导热方程与高斯滤波"><a href="#1-导热方程与高斯滤波" class="headerlink" title="1.导热方程与高斯滤波"></a>1.导热方程与高斯滤波</h2><h3 id="1-1问题引入"><a href="#1-1问题引入" class="headerlink" title="1.1问题引入"></a>1.1问题引入</h3><p>由牛顿冷却定律和傅里叶定理我们可以得到，一维空间中的热传导方程（<em>heat-conduction equation</em>）的一种定解问题（第一类边界）可以表示为<br>$$<br>\begin{cases}<br>u_t=a^2u_x+f,\ \ \ \ 0&lt;x&lt;l,t&gt;0\<br>u(0,t)=0，u(l,t)=0,\ \ \ \ t\geq0\<br>u(x,0)=\varphi(x),\ \ \ \ 0\leq x\leq l<br>\tag1<br>\end{cases}<br>$$<br>其中，$a^2 = k/(\rho c)&gt;0,f(x,t)=f_0(x,t)/c$ ，$a$是和热传导率有关的量，$f(x,t)$是和热源有关的量。</p>
 <p>这个方程刻画了导热体内部温度分布所服从的一般规律，我们利用课本第二章“分离变量法”的知识，可以通过求解特征值，特征函数，并通过正交分解求解初值ODE的方法求出这个方程的解。，从而求出导热体内部温度随空间和时间的分布。如果我们把思维打开，不仅仅局限于热传导方程的物理背景，而是将方程内部的数学关系抽象出来，我们就会发现这个方程具有很大的应用空间，比如在数字图像处理领域，如果我们将灰度图像的灰度值看作是温度，那么通过给定一个或正或负的热传导率，我们就可以对图像进行模糊或者尖锐化的处理：如果热传导率为正，那么一个邻域内的所有像素灰度值会趋于相同，这就是说图像的边界被模糊了；如果热传导率为负，那么一个区域内灰度的极差会趋近于无穷大，因为原始图像中灰度梯度最大的地方正是图形的边界处，这样我们就锐化了图像原本的边界。</p>
